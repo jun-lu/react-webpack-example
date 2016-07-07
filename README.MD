@@ -1,6 +1,11 @@
-## React webpack example
+## React Webpack example
 
-多入口的项目打包，自动识别src目录下的入口文件，零配置
+1. 自动适配多入口
+2. 自动写入 `js` `css`文件到 `html` 中
+3. 支持`less`
+4. 本地Server开发
+6. 热加载代码
+7. 区分开发和生产环境
 
 ## 使用
 
