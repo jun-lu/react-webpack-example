@@ -23,11 +23,11 @@ var dev_environment = environment.indexOf("dev"); // 本地开发环境 webpack 
 var daily_environment = environment.indexOf("daily"); // daily环境 webpack daily
 var dist_environment = environment.indexOf("dist"); // 生产环境 webpack dist
 
-var publicPath = "";//daily_environment != -1 ? daily_publicPath : (dist_environment != -1 ? dist_publicPath : dev_publicPath);
+var publicPath = daily_environment != -1 ? daily_publicPath : (dist_environment != -1 ? dist_publicPath : dev_publicPath);
 
 var extractLESS = new ExtractTextPlugin('[name].css');
 
-console.log( publicPath )
+// console.log( publicPath )
 
 var config = {
 	
