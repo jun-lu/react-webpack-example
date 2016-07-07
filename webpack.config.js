@@ -27,7 +27,15 @@ var publicPath = daily_environment != -1 ? daily_publicPath : (dist_environment 
 
 var extractLESS = new ExtractTextPlugin('[name].css');
 
-// console.log( publicPath )
+
+
+//读取.js文件作为入口
+var entry = {};
+fs.readdirSync(rootPath).map(function(item){
+	if(/\.js$/.test(item)){
+		entry[item.replace(".js", "")] = [rootPath+"/"+item]
+	}
+});
 
 var config = {
 	
@@ -35,12 +43,12 @@ var config = {
 		babel-polyfill' 可让浏览器支持最新的语法和扩展方法，比如 Object.assign 方法
 		entry: ['babel-polyfill','./src/index.js'],
     */
-     entry:{
-     	main:["./src/main.js"],
-     	index:["./src/index.js"],
-     	test:["./src/test.js"]	
-     },
-     
+     // entry:{
+     // 	main:["./src/main.js"],
+     // 	index:["./src/index.js"],
+     // 	test:["./src/test.js"]	
+     // },
+     entry:entry,
      output: {
          path:path.resolve(__dirname, distPath),
          publicPath:publicPath,
@@ -118,7 +126,6 @@ Object.keys(config.entry).map(function(key){
 
 //线上打包需要压缩代码
 if(dist_environment != -1){
-	console.log("压缩js")
 	config.plugins.unshift(
 		new webpack.optimize.UglifyJsPlugin({
             compress: {
