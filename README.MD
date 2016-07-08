@@ -1,4 +1,8 @@
 ## React Webpack example
+	
+Webpack打包React的脚手架，可自动识别 ./src  目录下的 .js 文件作为入口。区分多个环境，已正确配置热加载
+
+## 支持的功能
 
 1. 自动适配多入口
 2. 自动写入 `js` `css`文件到 `html` 中
@@ -10,19 +14,20 @@
 ## 使用
 
 ````
-	git clone  本仓库地址
-	npm install
-	npm start
+git clone https://github.com/jun-lu/react-webpack-example.git
+cd react-webpack-example
+npm install
+npm start //访问 http://127.0.0.1:8080/index.html
 
 ````
 
 ## 目录
 
 ````
-	-build 
-	-src
-	server.js
-	webpack.config.js
+-build 
+-src
+server.js
+webpack.config.js
 ````
 
 ## 服务端口
