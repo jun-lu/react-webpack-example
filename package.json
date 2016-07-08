@@ -1,12 +1,16 @@
 {
   "name": "react-webpack-example",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start":"node server.js",
     "dev": "cross-env NODE_ENV=daily webpack",
     "dist": "cross-env NODE_ENV=dist webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jun-lu/react-webpack-example.git"
   },
   "author": "Jun.lu",
   "license": "ISC",
