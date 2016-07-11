@@ -1,14 +1,13 @@
 
-import Hello from "./mods/Hello"
 import React from 'react'
 import {render} from 'react-dom'
 
-import "./mods/css.less";
+import "./style.less";
 
-export default class CustomComponent extends React.Component{
+export default class App extends React.Component{
 	render(){
-		return (<div className="custom-component">{Hello} main</div>);
+		return <div> Hello main.js </div>;
 	}
 }
 
-render(<CustomComponent />, document.getElementById("abc"))
+render(<App />, document.getElementById("root"))
