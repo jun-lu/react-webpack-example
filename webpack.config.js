@@ -69,7 +69,9 @@ var config = {
 		      */
 		      loader:'babel',
 		      query: {
-			        presets: ['react','es2015']
+			        presets: ['react','es2015'],
+			        //打包速度更快
+			        cacheDirectory: true
 			    }
 		    },
 		    {
