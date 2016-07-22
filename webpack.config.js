@@ -69,7 +69,13 @@ var config = {
 		      */
 		      loader:'babel',
 		      query: {
-			        presets: ['react','es2015'],
+
+		      		// 不适用async await 函数可以不要  transform-runtime 和 stage-3
+			        presets: ['react','es2015','stage-3'],
+			        plugins: ['transform-runtime'],
+
+			        //presets: ['react','es2015'],
+
 			        //打包速度更快
 			        cacheDirectory: true
 			    }
