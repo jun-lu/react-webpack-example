@@ -2,6 +2,12 @@
 import React from 'react'
 import {render} from 'react-dom'
 
+import {Router, Route, IndexRoute, IndexRedirect, browserHistory,hashHistory,useRouterHistory,Link } from 'react-router'
+
+import {createHashHistory} from 'history'
+//{queryKey: false}
+const history = useRouterHistory(createHashHistory)()
+
 import "./style.less";
 
 function ajax(){
@@ -12,7 +18,7 @@ function ajax(){
 	})
 }
 
-export default class App extends React.Component{
+class Index extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {}
@@ -32,7 +38,7 @@ export default class App extends React.Component{
 
 	render(){
 		return <div> 
-			Hello Index.js 
+			Hello Index 
 			<div>
 				<input  onClick={this.asyncFunc.bind(this)} type="button" value="点击发送请求，使用async/await语法" />
 				<div>
@@ -40,9 +46,46 @@ export default class App extends React.Component{
 						this.state.msg
 					}
 				</div>
+
+				<div>
+					<Link to="/">首页</Link><br/>
+					<Link to="/page2">第二页</Link>
+				</div>
 			</div>
 		</div>;
 	}
+}
+
+class Page2 extends React.Component{
+	render(){
+		return <div> 
+			Hello page2
+			<div>
+				
+				<div>
+					<Link to="/">首页</Link><br/>
+					<Link to="/page2">第二页</Link>
+				</div>
+			</div>
+		</div>;
+	}
+}
+
+
+class App extends React.Component{
+
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+        	<Router history={history}>
+            <Route path="/" component={Index}></Route>
+            <Route path="/page2" component={Page2}></Route>
+					</Router>
+        )
+
+    }
 }
 
 render(<App />, document.getElementById("root"))
