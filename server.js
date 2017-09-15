@@ -20,6 +20,7 @@ var server = new WebpackDevServer(compiler, {
 	inline:true,
 	quiet: false,
     compress: false,
+		disableHostCheck:true,//避免出现本地绑定host不生效
     historyApiFallback: true,
     stats: {
         // Config for minimal console.log mess.

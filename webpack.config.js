@@ -1,6 +1,6 @@
 
 var fs = require("fs")
-var webpack = require("webpack") 
+var webpack = require("webpack")
 var HtmlWebpackPlugin = require("html-webpack-plugin")
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
@@ -15,7 +15,7 @@ var distPath = "./build";
 
 //cdn
 var daily_publicPath = "http://daily.yuantutech.com";
-var dist_publicPath = "http://s.yuantutech.com";
+var dist_publicPath = "./";
 //本地开发环境通常不需要配置
 var dev_publicPath = null;
 
@@ -38,7 +38,7 @@ fs.readdirSync(rootPath).map(function(item){
 });
 
 var config = {
-	
+
     /**
 		babel-polyfill' 可让浏览器支持最新的语法和扩展方法，比如 Object.assign 方法
 		entry: ['babel-polyfill','./src/index.js'],
@@ -46,7 +46,7 @@ var config = {
      // entry:{
      // 	main:["./src/main.js"],
      // 	index:["./src/index.js"],
-     // 	test:["./src/test.js"]	
+     // 	test:["./src/test.js"]
      // },
      entry:entry,
      output: {
@@ -58,43 +58,43 @@ var config = {
      module:{
      	loaders: [
 		    {
-		      test: /\.js$/,
-		      /**
-		      	excule必须写一个目录不然会发出一个警告
-		      */
-		      exclude:path.resolve(__dirname, 'node_modules/'),
-		      /**
+			      test: /\.js$/,
+			      /**
+			      	excule必须写一个目录不然会发出一个警告
+			      */
+			      exclude:path.resolve(__dirname, 'node_modules/'),
+			      /**
 
-				babel-loader  需要配置 .babelrc
-		      */
-		      loader:'babel',
-		      query: {
+					babel-loader  需要配置 .babelrc
+			      */
+			      loader:'babel',
+			      query: {
 
-		      		// 不适用async await 函数可以不要  transform-runtime 和 stage-3
-			        presets: ['react','es2015','stage-3'],
-			        plugins: ['transform-runtime'],
+			      		// 不适用async await 函数可以不要  transform-runtime 和 stage-3
+				        presets: ['react','es2015','stage-3'],
+				        plugins: ['transform-runtime'],
 
-			        //presets: ['react','es2015'],
+				        //presets: ['react','es2015'],
 
-			        //打包速度更快
-			        cacheDirectory: true
-			    }
-		    },
-		    {
-			  test: /\.less$/,
-			  /**
-			  	css-loader less-loader autoprefixer
-				extractLESS.extract 独立打包 css文件
-				['css','less','autoprefixer'] ==> ['css-loader','less-loader','autoprefixer-loader'] 的简写
-			  */
-			  loader:extractLESS.extract(['css','less','autoprefixer'])
-			}
-			
-		]
+				        //打包速度更快
+				        cacheDirectory: true
+				    }
+			    },
+			    {
+				  test: /\.less$/,
+				  /**
+				  	css-loader less-loader autoprefixer
+						extractLESS.extract 独立打包 css文件
+						['css','less','autoprefixer'] ==> ['css-loader','less-loader','autoprefixer-loader'] 的简写
+				  */
+				  loader:extractLESS.extract(['css','less','autoprefixer'])
+				}
+
+			]
      },
      plugins: [
-	  extractLESS
-	]
+	  	extractLESS
+		]
  }
 
 
@@ -136,11 +136,16 @@ Object.keys(config.entry).map(function(key){
 if(dist_environment != -1){
 	config.plugins.unshift(
 		new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-    )
+        compress: {
+            warnings: false
+        }
+    }),
+		new webpack.DefinePlugin({
+      'process.env':{
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  )
 }
 
 /**
@@ -149,6 +154,6 @@ if(dist_environment != -1){
 if(dev_environment != -1){
 	config.plugins.push(new webpack.HotModuleReplacementPlugin())
 	config.plugins.push(new webpack.NoErrorsPlugin({"process.env.NODE_ENV":"development"}))
-}	  
+}
 
 module.exports = config;
