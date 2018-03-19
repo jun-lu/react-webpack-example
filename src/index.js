@@ -18,55 +18,53 @@ function ajax(){
 	})
 }
 
-class Index extends React.Component{
+class Page extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {}
+		this.state = {
+			text:"click test async await "
+		}
 	}
-	async asyncFunc(){
-
+	async onClickBtn(){
+		
 		this.setState({
-			msg:"请求中..."
-		})
-
-		//异步请求
-		var str = await ajax()
+			text:"loading ajax"
+		});
+		
+		let text = await ajax();
+		
 		this.setState({
-			msg:str
+			text:text
 		})
 	}
-
 	render(){
-		return <div> 
-			Hello Index 
-			<div>
-				<input  onClick={this.asyncFunc.bind(this)} type="button" value="点击发送请求，使用async/await语法" />
+		let {title} = this.props;
+		let {text} = this.state;
+
+		return (
+			<div className="page">
+				<h1 className="h1">Hello {title}</h1>
 				<div>
-					{
-						this.state.msg
-					}
-				</div>
-				<div>
-					<Link to="/">首页</Link><br/>
-					<Link to="/page2">第二页</Link>
+					<a href="#/">click to page1</a> <br/>
+					<a href="#/page2">click to page2</a> <br/>
+					<button onClick={this.onClickBtn.bind(this)} >{text}</button>
 				</div>
 			</div>
-		</div>;
+		)
 	}
 }
 
+
+class Page1 extends React.Component{
+	render(){
+		return <Page title="index.js Page1"></Page>
+	}
+}
+
+
 class Page2 extends React.Component{
 	render(){
-		return <div> 
-			Hello page2
-			<div>
-				
-				<div>
-					<Link to="/">首页</Link><br/>
-					<Link to="/page2">第二页</Link>
-				</div>
-			</div>
-		</div>;
+		return <Page title="index.js Page2"></Page>
 	}
 }
 
@@ -77,13 +75,12 @@ class App extends React.Component{
         super(props)
     }
     render() {
-        return (
-        	<Router history={history}>
-            <Route path="/" component={Index}></Route>
-            <Route path="/page2" component={Page2}></Route>
-					</Router>
-        )
-
+			return (
+				<Router history={history}>
+					<Route path="/" component={Page1}></Route>
+					<Route path="/page2" component={Page2}></Route>
+				</Router>
+			)
     }
 }
 

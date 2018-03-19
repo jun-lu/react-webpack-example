@@ -25,13 +25,13 @@ npm start //访问 http://127.0.0.1:8080/index.html
 ## 目录
 
 ````
-	-root
-		-build
-		-src
-			index.html
-			index.js
-		server.js
-		webpack.config.js
+  -root
+	  -build
+	  -src
+		  index.html
+		  index.js
+    server.js
+    webpack.config.js
 ````
 
 ## 服务端口
