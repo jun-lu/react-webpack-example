@@ -4,7 +4,7 @@ webpack 打包 react + react-router。
 
 ## 支持的功能
 
-* 支持async await语法（ajax请求爽歪歪）
+* 支持 async await 语法
 * 自动多入口
 * 自动写入 `js` `css`文件到 `html` 中
 * 支持`less,sass,css`
