@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "build": "npm run dist",
     "dev": "cross-env NODE_ENV=daily webpack",
     "dist": "cross-env NODE_ENV=dist webpack -p"
   },
@@ -15,7 +16,6 @@
   "author": "Jun.lu",
   "license": "ISC",
   "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -31,6 +31,7 @@
     "html-webpack-plugin": "^2.22.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "postcss-loader": "^2.1.2",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "style-loader": "^0.13.1",

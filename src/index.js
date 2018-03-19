@@ -5,7 +5,7 @@ import {render} from 'react-dom'
 import {Router, Route, IndexRoute, IndexRedirect, browserHistory,hashHistory,useRouterHistory,Link } from 'react-router'
 
 import {createHashHistory} from 'history'
-//{queryKey: false}
+
 const history = useRouterHistory(createHashHistory)()
 
 import "./style.less";
@@ -46,7 +46,6 @@ class Index extends React.Component{
 						this.state.msg
 					}
 				</div>
-
 				<div>
 					<Link to="/">首页</Link><br/>
 					<Link to="/page2">第二页</Link>

@@ -14,8 +14,9 @@ var rootPath = "./src";
 var distPath = "./build";
 
 //cdn
-var daily_publicPath = "http://daily.yuantutech.com";
+var daily_publicPath = "./";
 var dist_publicPath = "./";
+
 //本地开发环境通常不需要配置
 var dev_publicPath = null;
 
@@ -24,7 +25,6 @@ var daily_environment = environment.indexOf("daily"); // daily环境 webpack dai
 var dist_environment = environment.indexOf("dist"); // 生产环境 webpack dist
 
 var publicPath = daily_environment != -1 ? daily_publicPath : (dist_environment != -1 ? dist_publicPath : dev_publicPath);
-
 var extractLESS = new ExtractTextPlugin('[name].css');
 
 
@@ -39,62 +39,49 @@ fs.readdirSync(rootPath).map(function(item){
 
 var config = {
 
-    /**
-		babel-polyfill' 可让浏览器支持最新的语法和扩展方法，比如 Object.assign 方法
-		entry: ['babel-polyfill','./src/index.js'],
-    */
-     // entry:{
-     // 	main:["./src/main.js"],
-     // 	index:["./src/index.js"],
-     // 	test:["./src/test.js"]
-     // },
-     entry:entry,
-     output: {
-         path:path.resolve(__dirname, distPath),
-         publicPath:publicPath,
-         filename: '[name].bundle.js'
-     },
+		/**
+			babel-polyfill' 可让浏览器支持最新的语法和扩展方法，比如 Object.assign 方法
+			entry: ['babel-polyfill','./src/index.js'],
+		*/
+		entry:entry,
+		output: {
+				path:path.resolve(__dirname, distPath),
+				publicPath:publicPath,
+				filename: '[name].bundle.js'
+		},
 
-     module:{
-     	loaders: [
-		    {
-			      test: /\.js$/,
-			      /**
-			      	excule必须写一个目录不然会发出一个警告
-			      */
-			      exclude:path.resolve(__dirname, 'node_modules/'),
-			      /**
-
-					babel-loader  需要配置 .babelrc
-			      */
-			      loader:'babel',
-			      query: {
-
-			      		// 不适用async await 函数可以不要  transform-runtime 和 stage-3
-				        presets: ['react','es2015','stage-3'],
-				        plugins: ['transform-runtime'],
-
-				        //presets: ['react','es2015'],
-
-				        //打包速度更快
-				        cacheDirectory: true
-				    }
-			    },
-			    {
-				  test: /\.less$/,
-				  /**
-				  	css-loader less-loader autoprefixer
+		module:{
+			loaders: [
+				{
+					test: /\.js$/,
+					/**
+						excule必须写一个目录不然会发出一个警告
+					*/
+					exclude:path.resolve(__dirname, 'node_modules/'),
+					/**
+						babel-loader  需要配置 .babelrc
+					*/
+					loader:'babel',
+					query: {
+						// 不适用async await 函数可以不要  transform-runtime 和 stage-3
+						presets: ['react','es2015','stage-3'],
+						plugins: ['transform-runtime'],
+						//打包速度更快
+						cacheDirectory: true
+					}
+				},
+				{
+					test: /\.less$/,
+					/**
+						css-loader less-loader autoprefixer
 						extractLESS.extract 独立打包 css文件
 						['css','less','autoprefixer'] ==> ['css-loader','less-loader','autoprefixer-loader'] 的简写
-				  */
-				  loader:extractLESS.extract(['css','less','autoprefixer'])
+					*/
+					loader:extractLESS.extract(['css','postcss'])
 				}
-
 			]
-     },
-     plugins: [
-	  	extractLESS
-		]
+		},
+		plugins: [extractLESS]
  }
 
 
