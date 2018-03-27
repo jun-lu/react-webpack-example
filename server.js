@@ -1,6 +1,8 @@
 
-var webpack = require("webpack")
-var WebpackDevServer = require("webpack-dev-server")
+var webpack = require("webpack");
+var path = require("path");
+var WebpackDevServer = require("webpack-dev-server");
+
 
 var config = require("./webpack.config.js");
 
@@ -20,7 +22,7 @@ var server = new WebpackDevServer(compiler, {
 	inline:true,
 	quiet: false,
     compress: false,
-		disableHostCheck:true,//避免出现本地绑定host不生效
+	disableHostCheck:true,//避免出现本地绑定host不生效
     historyApiFallback: true,
     stats: {
         // Config for minimal console.log mess.
@@ -34,6 +36,8 @@ var server = new WebpackDevServer(compiler, {
     }
 
 });
-server.listen(port);
+
+
+server.listen(port, hosts);
 
 console.log(`Open http://${hosts}:${port}/index.html`)

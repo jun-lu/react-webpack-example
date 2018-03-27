@@ -1,22 +1,13 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-
 import {Router, Route, IndexRoute, IndexRedirect, browserHistory,hashHistory,useRouterHistory,Link } from 'react-router'
-
 import {createHashHistory} from 'history'
 
-const history = useRouterHistory(createHashHistory)()
-
+import DataCenter from './module/DataCenter'
+import Loading from './components/Loading'
 import "./style.less";
 
-function ajax(){
-	return new Promise((reslove, reject)=>{
-		setTimeout(()=>{
-			reslove("Hello async await")
-		}, 2000)
-	})
-}
 
 class Page extends React.Component{
 	constructor(props){
@@ -27,15 +18,16 @@ class Page extends React.Component{
 	}
 	async onClickBtn(){
 		
+
+		let result = await DataCenter.getHelloText()
+		.subscribe(this.refs['loading'])
+		.toPromise();
+
 		this.setState({
-			text:"loading ajax"
+			text:result.text
 		});
-		
-		let text = await ajax();
-		
-		this.setState({
-			text:text
-		})
+
+
 	}
 	render(){
 		let {title} = this.props;
@@ -47,6 +39,7 @@ class Page extends React.Component{
 				<div>
 					<a href="#/">click to page1</a> <br/>
 					<a href="#/page2">click to page2</a> <br/>
+					<Loading ref="loading"></Loading><br/>
 					<button onClick={this.onClickBtn.bind(this)} >{text}</button>
 				</div>
 			</div>
@@ -69,6 +62,9 @@ class Page2 extends React.Component{
 }
 
 
+const history = useRouterHistory(createHashHistory)()
+
+
 class App extends React.Component{
 
     constructor(props) {
@@ -84,4 +80,10 @@ class App extends React.Component{
     }
 }
 
+
+
 render(<App />, document.getElementById("root"))
+
+
+
+
