@@ -29,15 +29,15 @@ rm -rf .git
 ## 目录
 
 ````
-  -root
-	  -build
-		-mock
-			hello.json
-	  -src
-		  index.html
-		  index.js
-    server.js
-    webpack.config.js
+ -root
+  -build
+  -mock
+    hello.json
+  -src
+    index.html
+    index.js
+  server.js
+  webpack.config.js
 ````
 
 ## 服务端口
